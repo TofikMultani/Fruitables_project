@@ -25,15 +25,21 @@ namespace Fruitables_project.Admin
             {
                 LoadDashboardData();
                 LoadAdminProfile();
-                //  LoadAdminProfile(); // Load profile details on page load
+
+                // Fetch total orders across all users
+                Account_class account = new Account_class();
+                int totalOrders = account.GetTotalOrders(); // New method for general orders
+                lblTotalOrders.Text = "Total Orders: " + totalOrders.ToString();
             }
 
+            // Display any query string message (optional)
             if (!IsPostBack && Request.QueryString["message"] != null)
             {
                 lblMessage.Text = Request.QueryString["message"];
             }
-
         }
+
+
         protected void LoadAdminProfile()
         {
             try
@@ -69,12 +75,15 @@ namespace Fruitables_project.Admin
             lblTotalProducts.Text = obj.GetTotalProducts().ToString();
            // lblTotalOrders.Text = obj.GetTotalOrders().ToString();
             lblTotalUsers.Text = obj.GetTotalUsers().ToString();
+            // Fetch total orders and bind to label
+            lblTotalOrders.Text = "Total Orders: " + obj.GetTotalOrders().ToString();
+        
 
-           // gvOrders.DataSource = obj.GetRecentOrders();
-           // gvOrders.DataBind();
-        }
+        // gvOrders.DataSource = obj.GetRecentOrders();
+        // gvOrders.DataBind();
+    }
 
-        protected void btnSaveChanges_Click(object sender, EventArgs e)
+    protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
             string name = txtEditName.Text;
             string gender = ddlGender.SelectedValue;

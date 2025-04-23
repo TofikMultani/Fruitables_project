@@ -24,6 +24,11 @@ namespace Fruitables_project.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Authentication check: Only Admin should access this page
+            if (Session["AdminID"] == null)
+            {
+                Response.Redirect("AdminLogin.aspx?message=Please login to access this page.");
+            }
             if (!IsPostBack)
             {
                 ViewState["pid"] = 0;
@@ -112,6 +117,13 @@ namespace Fruitables_project.Admin
             txtProName.Text = ds.Tables[0].Rows[0][1].ToString();
             txtProDescription.Text = ds.Tables[0].Rows[0][2].ToString();
             txtProPrice.Text = ds.Tables[0].Rows[0][3].ToString();
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("AdminLogin.aspx?message=You have been logged out successfully");
         }
     }
 }

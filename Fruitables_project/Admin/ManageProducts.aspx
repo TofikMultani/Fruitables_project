@@ -46,9 +46,13 @@
             <h4 class="text-white text-center">Admin Panel</h4>
             <a href="AdminDashboard.aspx"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
             <a href="ManageProducts.aspx"><i class="fas fa-box"></i> Manage Products</a>
-            <a href="ManageOrders.aspx"><i class="fas fa-shopping-cart"></i> Orders</a>
+            <%--<a href="ManageOrders.aspx"><i class="fas fa-shopping-cart"></i> Orders</a>--%>
+            <a href="AdminOrderManagement.aspx"><i class="fas fa-shopping-cart"></i> Orders</a>
             <a href="ManageUsers.aspx"><i class="fas fa-users"></i> Users</a>
-            <a href="Logout.aspx"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <%--<a href="Logout.aspx"><i class="fas fa-sign-out-alt"></i> Logout</a>--%>
+             <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-danger" OnClick="btnLogout_Click">
+    <i class="fas fa-sign-out-alt"></i> Logout
+</asp:LinkButton>
         </div>
 
         <!-- Main Content -->

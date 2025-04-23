@@ -89,7 +89,7 @@
             <h4 class="text-white text-center">Admin Panel</h4>
             <a href="AdminDashboard.aspx"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
             <a href="ManageProducts.aspx"><i class="fas fa-box"></i> Manage Products</a>
-            <a href="ManageOrders.aspx"><i class="fas fa-shopping-cart"></i> Orders</a>
+            <a href="AdminOrderManagement.aspx"><i class="fas fa-shopping-cart"></i> Orders</a>
             <a href="ManageUsers.aspx"><i class="fas fa-users"></i> Users</a>
             <%--<a href="Logout.aspx"><i class="fas fa-sign-out-alt"></i> Logout</a>--%>
             <!-- Add Logout link here -->
@@ -182,11 +182,11 @@
     </div>
 
      <div class="col-md-4">
-        <div class="card p-3">
-            <h5>Total Orders</h5>
-            <asp:Label ID="lblTotalOrders" runat="server" Text="0"></asp:Label>
-        </div>
+    <div class="card p-3">
+        <h5>Total Orders</h5>
+        <asp:Label ID="lblTotalOrders" runat="server" Text="Total Orders: 0"></asp:Label>
     </div>
+</div>
 
     <div class="col-md-4">
         <div class="card p-3">

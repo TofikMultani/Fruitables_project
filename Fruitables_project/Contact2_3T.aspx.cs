@@ -30,7 +30,12 @@ namespace Fruitables_project
         {
             getcon();
             uploading();
-            fillgrid();
+           // fillgrid();
+            // Check if the user is authenticated
+            if (Session["UserLoggedIn"] == null || !(bool)Session["UserLoggedIn"])
+            {
+                Response.Redirect("Login.aspx"); // Redirect to the login page if not logged in
+            }
         }
         void getcon()
         {
@@ -53,17 +58,17 @@ namespace Fruitables_project
                 int id = Convert.ToInt16(e.CommandArgument);
                 ViewState["id"] = id;
                 cs.delete(id);
-                fillgrid();
+             //   fillgrid();
             }
         }
 
-        void fillgrid()
-        {
-            cs = new Contact2_3T_class();
-            getcon();
-            GridView1.DataSource = cs.filldata();
-            GridView1.DataBind();
-        }
+        //void fillgrid()
+        //{
+        //    cs = new Contact2_3T_class();
+        //    getcon();
+        //    GridView1.DataSource = cs.filldata();
+        //    GridView1.DataBind();
+        //}
 
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -107,7 +112,7 @@ namespace Fruitables_project
                     }
                 }
                 cs.insert(txtunm.Text, rdbgen.Text, h1, h2, h3, drpct.SelectedValue, txtadd.Text, fnm);
-                fillgrid();
+               // fillgrid();
             }
             else
             {
@@ -150,7 +155,7 @@ namespace Fruitables_project
                     }
                 }
                 cs.update(Convert.ToInt16(ViewState["id"]), txtunm.Text, rdbgen.Text, h1, h2, h3, drpct.SelectedValue, txtadd.Text);
-                fillgrid();
+                //fillgrid();
             }
         }
 
@@ -200,6 +205,41 @@ namespace Fruitables_project
                 chkhb.Items[2].Selected = false;
             }
         }
+
+        protected void UserProfileButton_Click(object sender, EventArgs e)
+        {
+            // Fetch user profile details
+            Account_class cs = new Account_class();
+            DataTable dt = cs.GetUserProfile(Convert.ToInt32(Session["UserId"]));
+            // Assuming "UserID" is stored in the session
+
+            if (dt.Rows.Count > 0)
+            {
+                lblUserName.Text = "Name: " + dt.Rows[0]["Name"].ToString();
+                lblUserEmail.Text = "Email: " + dt.Rows[0]["Email"].ToString();
+                lblUserCity.Text = "City: " + dt.Rows[0]["City"].ToString();
+                lblUserAddress.Text = "Address: " + dt.Rows[0]["Address"].ToString();
+
+                ProfilePopup.Visible = true; // Show the popup
+            }
+            else
+            {
+                Response.Write("<script>alert('User data not found');</script>");
+            }
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditUserProfile.aspx"); // Redirect to edit profile page
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            // Clear session and redirect to login page
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
+
         void uploading()
         {
             if (fldimg.HasFile)
